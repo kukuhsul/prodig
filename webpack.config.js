@@ -42,7 +42,9 @@ module.exports = {
           {
             loader: 'css-loader', //# generate Typescript typings for CSS modules
             options: {
-              url: false, //# disable url() resolving by css-loader
+							url: false, //# disable url() resolving by css-loader,
+							modules: true,
+							loader: 2
             }
           },
           'postcss-loader', //# run postcss plugins (e.g. autoprefixer)
@@ -75,9 +77,12 @@ module.exports = {
 			// },
 		]
 	},
+	optimization: {
+    minimize: true
+  },
 	externals: {
-		'react': 'React',
-		'react-dom': 'ReactDOM'
+		'react': 'react',
+		'react-dom': 'react-dom'
 	},
 	resolve: {
 		extensions: ['*', '.js', '.ts', '.tsx'], //# automatically resolve certain extensions

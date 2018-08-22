@@ -25,5 +25,14 @@ import './styles/styles.scss';
 
 // //
 export { default as Hello } from './components/Hello';
+export { default as Hello2 } from './components/Hello2';
+export { default as Hello3 } from './components/Hello3';
+export { default as Hello4 } from './components/Hello4';
+export { default as Hello5 } from './components/Hello5';
+export { default as Hello6 } from './components/Hello6';
+export { default as Hello7 } from './components/Hello7';
+export { default as Hello8 } from './components/Hello8';
+export { default as Hello9 } from './components/Hello9';
+export { default as Hello10 } from './components/Hello10';
 // export { default as HelloAgain }  from './components/HelloAgain';
 // export { default as Icon }  from './components/Icon';
