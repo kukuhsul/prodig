@@ -8,6 +8,7 @@ import replace from 'rollup-plugin-replace';
 import postcss from 'rollup-plugin-postcss';
 import postcssTyped from 'rollup-plugin-postcss-modules';
 import autoprefixer from 'autoprefixer';
+import { uglify } from 'rollup-plugin-uglify';
 
 import { dependencies } from './package.json';
 
@@ -16,7 +17,7 @@ export default {
 	output: {
 		file: 'index.js',
 		format: 'cjs',
-		dir: resolve(__dirname, './build'),
+		dir: resolve(__dirname, './dist'),
 		sourcemap: 'inline',
 	},
 	plugins: [
@@ -67,6 +68,8 @@ export default {
 		typescriptPlugin({
 			typescript,
 		}),
+
+		uglify(),
 
 		/*
 		 * Show bundled file size
