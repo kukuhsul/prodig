@@ -6,7 +6,6 @@ import typescript from 'typescript';
 import filesize from 'rollup-plugin-filesize';
 import replace from 'rollup-plugin-replace';
 import postcss from 'rollup-plugin-postcss';
-import postcssTyped from 'rollup-plugin-postcss-modules';
 import autoprefixer from 'autoprefixer';
 import { uglify } from 'rollup-plugin-uglify';
 

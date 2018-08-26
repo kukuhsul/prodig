@@ -5,7 +5,7 @@ export interface IHelloProps { text: string; }
 
 export default function Hello(props: IHelloProps) {
 	return (
-		<h1 className={styles['Hello--info']}>
+		<h1 className={styles['Hello--warning']}>
 			{props.text}
 		</h1>
 	);
