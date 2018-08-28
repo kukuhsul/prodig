@@ -38,14 +38,14 @@ Promise.all([
 		outputFileSync(`${distStyles}/_components.scss`, componentsSass)
 	})
 	.then(() => {
-		console.log('SAAS-BUILD: [SUCCESS] generated dist/styles/_components.scss');
+		console.log('SASS-BUILD: [SUCCESS] generated dist/styles/_components.scss');
 
 		//# write 'dist/styles/styles.scss'
 		//# contain @import 'components';
 		outputFileSync(`${distStyles}/styles.scss`, `@import 'components';\n`)
 	})
 	.then(() => {
-		console.log('SAAS-BUILD: [SUCCESS] generated dist/styles/styles.scss')
+		console.log('SASS-BUILD: [SUCCESS] generated dist/styles/styles.scss')
 
 		//# read 'src/styles/styles.scss'
 		return readFileSync(resolve(root, 'src/styles/styles.scss'));
