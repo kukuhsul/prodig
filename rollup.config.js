@@ -6,13 +6,12 @@ import typescript from 'typescript';
 import filesize from 'rollup-plugin-filesize';
 import replace from 'rollup-plugin-replace';
 import postcss from 'rollup-plugin-postcss';
-import autoprefixer from 'autoprefixer';
 import { uglify } from 'rollup-plugin-uglify';
 
 import { dependencies } from './package.json';
 
 export default {
-	input: resolve(__dirname, './src/index.ts'), //# [DEV]
+	input: resolve(__dirname, './src/index.ts'),
 	output: {
 		file: 'index.js',
 		format: 'cjs',
@@ -20,14 +19,14 @@ export default {
 		sourcemap: 'inline',
 	},
 	plugins: [
-		/*
+		/**
 		 * Replace strings (NODE_ENV) in files if any
 		 */
 		replace({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
 		}),
 
-		/*
+		/**
 		 * Locate modules using Node resolution algorithm,
 		 * so that we can use third party modules in node_module
 		 */
@@ -37,7 +36,7 @@ export default {
 			browser: true,
 		}),
 
-		/*
+		/**
 		 * Converts CommonJS modules to ES6
 		 * so that won't breaks Rollup
 		 */
@@ -45,22 +44,11 @@ export default {
       include: 'node_modules/**'
 		}),
 
-
-		// TODO: should extract and also bundled css modules
 		postcss({
-			modules: true,
-			plugins: [
-				autoprefixer(),
-			]
+			modules: true //# enable css-modules
 		}),
-		// postcss({
-		// 	extract: true,
-		// 	plugins: [
-		// 		autoprefixer(),
-		// 	]
-		// }),
 
-		/*
+		/**
 		 * Compiles Typescript to standards-based Javascript
 		 * Configuration can be found in `tsconfig.json`
 		 */
@@ -70,13 +58,13 @@ export default {
 
 		uglify(),
 
-		/*
+		/**
 		 * Show bundled file size
 		 */
 		filesize(),
 	],
 
-	/*
+	/**
 	 * Set all of the package depedencies as external modules,
 	 * so that it won't be included in bundle file
 	 */

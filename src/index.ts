@@ -24,7 +24,7 @@ import './styles/styles.scss';
 // // COMPONENts
 
 // //
-export { default as Hello } from './components/Hello';
+export { Hello } from './components/Hello';
 // export { default as Hello2 } from './components/Hello2';
 // export { default as Hello3 } from './components/Hello3';
 // export { default as Hello4 } from './components/Hello4';

@@ -3,7 +3,7 @@ import styles from './Hello.scss';
 
 export interface IHelloProps { text: string; }
 
-export default function Hello(props: IHelloProps) {
+export function Hello(props: IHelloProps) {
 	return (
 		<h1 className={styles['Hello--warning']}>
 			{props.text}
