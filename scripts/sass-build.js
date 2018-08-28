@@ -38,7 +38,7 @@ Promise.all([
 		outputFileSync(`${distStyles}/_components.scss`, componentsSass)
 	})
 	.then(() => {
-		console.log('SAAS-BUILD: [SUCCESS] generated _components.scss');
+		console.log('SAAS-BUILD: [SUCCESS] generated dist/styles/_components.scss');
 
 		//# write 'dist/styles/styles.scss'
 		//# contain @import 'components';
