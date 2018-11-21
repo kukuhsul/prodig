@@ -4,13 +4,13 @@
  * Contains 4 layers of styles:
  	 1. Settings
 	 2. Tools
- 	 3. Base
+ 	 3. Bases
 	 4. Utilities
  */
 
 /**
  * [1] SETTTINGS
- * Contain global SCSS variables and configs
+ * Contains global SCSS variables and configs
  * Any variable that does not need to be accessed globally should belong in partial to which it relates
  */
 @import 'settings/color';
@@ -18,29 +18,29 @@
 
 /**
  * [2] TOOLS
- * Contain global SCSS functions and mixins
+ * Contains global SCSS functions and mixins
  * Any function or mixin that does not need to be accessed globally should belong in partial to which it relates
  */
 @import 'tools/control-size';
 @import 'tools/unit';
 
 /**
- * [3] BASE
- * Contain basic styling
+ * [3] BASES
+ * Contains basic styling
  * Basic html tag styling, no-class
  */
 @import 'bases/normalize';
 
 /**
  * [4] COMPONENTS
- * Contain components-level styles
+ * Contains components-level styles
  * Located in each component
  */
 /* WILL_BE_REPLACED_BY_COMPONENTS */
 
 /**
  * [4] UTILITIES
- * Contain helper class
+ * Contains helper class
  * High-specifity, can use !important
  * E.g. text-align, float, position
 */
