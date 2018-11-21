@@ -5,9 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "npm run clean && npm-run-all --parallel build:js build:css copy-assets",
-    "build:js": "rimraf dist/*.js && NODE_ENV=production ./node_modules/.bin/rollup -c",
+    "build:js": "NODE_ENV=production ./node_modules/.bin/rollup -c",
     "build:css": "node 'scripts/sass-build.js'",
-    "build-css": "node-sass dist/styles/index.scss -o dist/styles/",
     "clean": "rimraf dist",
     "copy-misc": "node 'scripts/copy-misc.js'",
     "copy-assets": "node 'scripts/copy-assets.js'",
