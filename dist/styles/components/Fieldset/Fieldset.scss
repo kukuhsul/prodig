@@ -1,0 +1,36 @@
+@import '../../settings/color';
+@import '../../settings/global';
+@import '../../tools/control-size';
+@import '../../tools/unit';
+
+$namespace: 'fieldset';
+
+$border-size: $control-border-size;
+$border-radius: $control-border-radius;
+$line-height: 1;
+$font-size: px-to-rem($control-font-size);
+$padding-y: px-to-rem($control-padding-y);
+$padding-x: px-to-rem($control-padding-x);
+
+.#{$namespace} {
+	margin-bottom: px-to-rem(20px);
+
+	&__label,
+	&__helper {
+		display: block;
+		font-size: px-to-rem(12px);
+	}
+
+	&__label {
+		color: $gray1;
+		font-weight: 500;
+		margin-bottom: px-to-rem(12px);
+		text-transform: uppercase;
+	}
+
+	&__helper {
+		color: $gray5;
+		margin: px-to-rem(6px) 0 0 0;
+		opacity: 0.5;
+	}
+}

@@ -7,7 +7,7 @@ function copy(paths, config) {
       if (error) {
         reject(error);
       } else {
-        resolve(`UTILS-COPY: [SUCCESS] copy ${paths[0].replace(root, '')} to ${paths[1].replace(root, '')} succeed`);
+        resolve(`COPY: [SUCCESS] copy ${paths[0].replace(root, '')} to ${paths[1].replace(root, '')} succeed`);
       }
     });
   });

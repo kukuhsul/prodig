@@ -1,0 +1,113 @@
+/**
+ * Unit Convertion
+	 ==========================================================================
+ * Translation of rem units to pixel value is determined by the font size of the html element
+ * Translation of em units to pixel values is determined by the font size of the element they’re used on.
+ * Use em only when you have element with non-default font-size, and want entire component
+	 of those element scale base on the element's font size
+ * Otherwise, use rem
+ * Credit: https://github.com/Shopify/polaris/blob/master/src/styles/foundation/utilities.scss
+ */
+/* stylelint-disable at-rule-no-unknown, block-closing-brace-newline-after, at-rule-empty-line-before  */
+
+$base-font-size: $global-font-size !default;
+
+/**
+ * Returns the value in rem for a given pixel value.
+ * @param {Number} $value - The px value to be converted
+ * @return {Number} The converted value in rem
+ */
+@function px-to-rem($value) {
+	$unit: unit($value);
+
+	@if $value == 0 {
+		@return 0;
+	}
+
+	@else if $unit == 'rem' {
+		@return $value;
+	}
+
+	@else if $unit == 'px' {
+		@return $value / $base-font-size * 1rem;
+	}
+
+	@else {
+		@error 'Value must be in px.';
+	}
+}
+
+/**
+ * Returns the value in em for a given px value.
+ * @param {Number} $value - The px value to be converted.
+ * @return {Number} The converted value in em.
+ */
+@function px-to-em($value, $element-font-size) {
+	$unit: unit($value);
+
+	@if $value == 0 {
+		@return 0;
+	}
+
+	@else if $unit == 'em' {
+		@return $value;
+	}
+
+	@else if $unit == 'px' {
+		@return $value / $element-font-size * 1em;
+	}
+
+	@else {
+		@error 'Value must be in px.';
+	}
+}
+
+/**
+ * Returns the value in px for a given rem value.
+ * @param {Number} $value - The rem value to be converted.
+ * @return {Number} The converted value in px.
+ */
+@function rem-to-px($value) {
+	$unit: unit($value);
+
+	@if $value == 0 {
+		@return 0;
+	}
+
+	@else if $unit == 'px' {
+		@return $value;
+	}
+
+	@else if $unit == 'rem' {
+		@return ($value / 1rem) * $base-font-size;
+	}
+
+	@else {
+		@error 'Value must be in rem.';
+	}
+}
+
+/**
+ * Returns the value in px for a given em value.
+ * @param {Number} $value - The em value to be converted.
+ * @return {Number} The converted value in px.
+ */
+@function em-to-px($value, $element-font-size) {
+	$unit: unit($value);
+
+	@if $value == 0 {
+		@return 0;
+	}
+
+	@else if $unit == 'px' {
+		@return $value;
+	}
+
+	@else if $unit == 'em' {
+		@return ($value / 1em) * $element-font-size;
+	}
+
+	@else {
+		@error 'Value must be in em.';
+	}
+}

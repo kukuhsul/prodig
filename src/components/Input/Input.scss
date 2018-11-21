@@ -1,0 +1,21 @@
+@import '../../styles/settings/color';
+@import '../../styles/settings/global';
+@import '../../styles/tools/control-size';
+@import '../../styles/tools/unit';
+
+$namespace: 'input';
+
+$border-size: $control-border-size;
+$border-radius: $control-border-radius;
+$line-height: 1;
+$font-size: px-to-rem($control-font-size);
+$padding-y: px-to-rem($control-padding-y);
+$padding-x: px-to-rem($control-padding-x);
+
+#{$namespace} {
+	border: $border-size solid $gray4;
+	border-radius: $border-radius;
+	padding: $padding-y $padding-x;
+	color: $gray2;
+	font-size: $font-size;
+}

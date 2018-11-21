@@ -6,7 +6,7 @@
 // //
 // // STYLES
 // //
-import './styles/styles.scss';
+import './styles/index.scss';
 
 // //
 // // IMAGES
@@ -20,19 +20,10 @@ import './styles/styles.scss';
 // import './fonts/proofn-icon.ttf';
 // import './fonts/proofn-icon.woff';
 
-// //
-// // COMPONENts
+//
+// COMPONENTS
+//
 
-// //
-export { Hello } from './components/Hello';
-// export { default as Hello2 } from './components/Hello2';
-// export { default as Hello3 } from './components/Hello3';
-// export { default as Hello4 } from './components/Hello4';
-// export { default as Hello5 } from './components/Hello5';
-// export { default as Hello6 } from './components/Hello6';
-// export { default as Hello7 } from './components/Hello7';
-// export { default as Hello8 } from './components/Hello8';
-// export { default as Hello9 } from './components/Hello9';
-// export { default as Hello10 } from './components/Hello10';
-// export { default as HelloAgain }  from './components/HelloAgain';
-// export { default as Icon }  from './components/Icon';
+export { Button } from './components/Button';
+export { Fieldset } from './components/Fieldset';
+export { Input } from './components/Input';

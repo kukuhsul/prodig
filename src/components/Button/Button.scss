@@ -1,0 +1,62 @@
+@import '../../styles/settings/color';
+@import '../../styles/settings/global';
+@import '../../styles/tools/control-size';
+@import '../../styles/tools/unit';
+
+$namespace: 'button';
+
+$border-size: $control-border-size;
+$border-radius: $control-border-radius;
+$line-height: 1;
+$font-size: px-to-rem($control-font-size);
+$padding-y: px-to-rem($control-padding-y);
+$padding-x: px-to-rem($control-padding-x);
+
+/**
+ * Generate button variant
+ */
+@mixin button-variant($background, $color, $border-color:'') {
+	color: $color;
+	background: $background;
+	border-color: #{$border-color};
+	transition: box-shadow 150ms ease-in;
+
+	&:hover {
+		box-shadow: none;
+	}
+}
+
+.#{$namespace} {
+	border: $border-size solid $gray3;
+	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.16), 0 1px 4px 0 rgba(0, 0, 0, 0.21);
+	display: inline-block;
+	font-weight: 500;
+	text-align: center;
+	vertical-align: middle;
+
+	@include control-size($padding-y, $padding-x, $font-size, $line-height, $border-radius);
+
+	&.disabled,
+	&:disabled {
+		opacity: 0.75;
+		pointer-events: none; /** disable all pointer events */
+	}
+
+	&:not(:disabled):not(.disabled) {
+		cursor: pointer;
+	}
+
+	&--orange {
+		@include button-variant($gradient-orange, $white, transparent);
+	}
+
+	// TODO: Fix error in PostCSS plugin
+	// &--green {
+	// 	@include button-variant($gradient-green, $white, transparent);
+	// }
+
+	// TODO: Fix error in PostCSS plugin
+	// &--purple {
+	// 	@include button-variant($gradient-purple, $white, transparent);
+	// }
+}

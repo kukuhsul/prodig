@@ -27,83 +27,56 @@ Promise.all([
 	.catch(console.error)
 	.then(() => {
 		//# grab all component-level styles filename,
-		//# then make scss '@import' statement for each style
-		const componentsSass = glob
-			.sync(join(distStyles, 'components/**/*.scss'))
+		const components = glob.sync(join(distStyles, 'components/**/*.scss'));
+
+		//# modify `@import` path statement in component-level style
+		//# `../../styles` to `../../`
+		components.forEach( componentPath => {
+			// console.log(relative(distStyles, component))
+			let componentStyle = readFileSync(componentPath, 'utf8');
+			componentStyle = componentStyle.replace(new RegExp('../../styles/', 'gi'), '../../');
+			outputFileSync(componentPath, componentStyle)
+		})
+		return components
+	})
+	.then((components) => {
+		console.log('SASS-BUILD: [SUCCESS] component-level styles path has modified from `../../styles` to `../../`');
+
+		//# insert scss '@import' statement for each component into index.scss
+		let componentsImport = components
 			.map(absolutePath => relative(distStyles, absolutePath).replace('.scss', ''))
 			.map(relativePath => `@import '${relativePath}';`)
 			.join('\n');
-
-		//# generate _components.scss that importing all component-level style
-		outputFileSync(`${distStyles}/_components.scss`, componentsSass)
+		let styles = readFileSync(join(distStyles, 'index.scss'), "utf8");
+		styles = styles.replace('/* WILL_BE_REPLACED_BY_COMPONENTS */', componentsImport);
+		outputFileSync(join(distStyles, 'index.scss'), styles)
 	})
 	.then(() => {
-		console.log('SASS-BUILD: [SUCCESS] generated dist/styles/_components.scss');
+		console.log('SASS-BUILD: [SUCCESS] `@import [component]` statement has generated in index.scss')
 
-		//# write 'dist/styles/styles.scss'
-		//# contain @import 'components';
-		outputFileSync(`${distStyles}/styles.scss`, `@import 'components';\n`)
-	})
-	.then(() => {
-		console.log('SASS-BUILD: [SUCCESS] generated dist/styles/styles.scss')
+		//# build sass into css
+		const sassBuild = sass({
+			'file': join(distStyles, 'index.scss'),
+		});
 
-		//# read 'src/styles/styles.scss'
-		return readFileSync(resolve(root, 'src/styles/styles.scss'));
-	}, err => {
-		console.error(`SASS-BUILD: [ERROR] can't create dist/styles/styles.scss file.`);
-		console.log(err);
-	})
-	.then(srcStyles => {
-		//# append src/styles/styles.scss to dist/styles/styles.scss
-		appendFileSync(`${distStyles}/styles.scss`, srcStyles);
-	}, err => {
-		console.error(`SASS-BUILD: [ERROR] can't read dist/styles/styles.scss file.`);
-		console.error(err);
-	})
-	.catch(err => {
-		console.error(`SASS-BUILD: [ERROR] can't modify dist/styles/styles.scss file.`);
-		console.error(err);
-	})
-	.then(() => {
-		readFileSync(resolve(root, 'src/styles/styles.scss'));
-	})
-	.then(() => {
-		//# compile scss into css
-		return sass({
-			'file': join(distStyles, 'styles.scss'),
-			'outFile': join(distStyles, 'styles.css')
-		})
-	}, err => {
-		console.error(`SASS-BUILD: [ERROR] can't read dist/styles/styles.scss file.`);
-		console.error(err);
-	})
-	.then(sassBuild => {
-		const ctx = { from: join(distStyles, 'styles.css'), to: join(distStyles, 'styles.css') };
-
-		//# load postcss config, additional ctx
-		return postcssrc(ctx).then(({plugins, options}) => {
-			//# run postcss
+		//# using PostCSS
+		const ctx = {
+			from: join(distStyles, 'styles.css'),
+			to: join(distStyles, 'styles.css')
+		};
+		const postcssBuild =  postcssrc(ctx).then(({plugins, options}) => {
 			return postcss(plugins)
 				.process(sassBuild.css, options)
 		})
-	}, err => {
-		console.error(`SASS-BUILD: [ERROR] node-sass error`);
-		console.error(`Error in ${relative(distStyles, err.file)} at line: ${err.line} column:${err.column}.`);
-		console.log(`Message: ${err.message}`);
-    process.exit(1);
+
+		return postcssBuild
 	})
-	.then(postcssBuild => {
-		outputFileSync(join(distStyles, 'styles.css'), postcssBuild.css);
+	.then((postcssBuild) => {
+		//# write `dist/styles/index.css`
+		outputFileSync(join(distStyles, 'index.css'), postcssBuild.css);
+	}).then(() => {
+		console.log('SASS-BUILD: [SUCCESS] generated `dist/styles/styles.css`');
 	}, err => {
-		console.error(`SASS-BUILD: [ERROR] postcss error`);
-		console.error(err);
-	})
-	.then(() => {
-		console.log(`SASS-BUILD: [SUCCESS] generated dist/styles/styles.css`);
-	}, err => {
-		console.error(`SASS-BUILD: [ERROR] can't write styles.css`);
+		console.error('SASS-BUILD: [ERROR] cannot generate `dist/styles/styles.css`');
 		console.error(err);
 	});
-
-
-// TODO: add css sourcemap

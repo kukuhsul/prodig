@@ -1,34 +1,38 @@
 const path = require("path");
 const TSDocgenPlugin = require("react-docgen-typescript-webpack-plugin");
-// const
 
-module.exports = (baseConfig, env, config) => {
-	config.module.rules.push({
-		test: /\.(ts|tsx)$/,
-		loader: require.resolve("awesome-typescript-loader")
-	});
-
-	config.module.rules.push({
-		test: /\.css|.scss$/,
+module.exports = (baseConfig, env, defaultConfig) => {
+	defaultConfig.module.rules.push({
+		test: /\.scss$/,
 		use: [
 			'style-loader',
 			{
 				loader: 'css-loader',
 				options: {
 					url: false,
-					modules: true,
+					import: false,
+					module: true,
 					namedExport: true,
-					// camelCase: 'dashesOnly',
 					importLoaders: 2,
 				}
 			},
 			'postcss-loader', //# run postcss plugins (e.g. autoprefixer)
-			'sass-loader', //# parse scss into css
+			{
+				loader: 'sass-loader', //# parse scss into css
+				options: {
+					inludePaths: [path.resolve(__dirname, './src/styles')] //# path to look for imported files
+				}
+			}
 		]
 	});
 
-	config.plugins.push(new TSDocgenPlugin());
-	config.resolve.extensions.push(".ts", ".tsx");
+	defaultConfig.module.rules.push({
+		test: /\.(ts|tsx)$/,
+		loader: require.resolve("awesome-typescript-loader")
+	});
 
-	return config;
+	defaultConfig.plugins.push(new TSDocgenPlugin());
+	defaultConfig.resolve.extensions.push(".ts", ".tsx");
+
+	return defaultConfig;
 };
